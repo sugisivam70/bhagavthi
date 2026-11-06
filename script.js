@@ -1,4 +1,4 @@
-/* ===== SRI RADHAI INDUSTRIES — v3 SCRIPT =====
+/* ===== BHAGAVATHI ENGINEERING — v3 SCRIPT =====
    Parallax | Scroll-Triggered Animations | Counters
    ================================================= */
 
