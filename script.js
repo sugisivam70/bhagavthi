@@ -340,4 +340,74 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // ───── Gallery Filtering & Lightbox Modal ─────
+    const filterBtns = document.querySelectorAll('.gallery-filter-btn');
+    const galleryCards = document.querySelectorAll('.infra-gallery-card');
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const filter = btn.getAttribute('data-filter');
+
+            galleryCards.forEach(card => {
+                if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    // Lightbox modal trigger for any element with data-preview-src or .infra-gallery-thumb
+    const modal = document.getElementById('lightboxModal');
+    const modalImg = document.getElementById('lightboxImg');
+    const modalTitle = document.getElementById('lightboxTitle');
+    const modalDesc = document.getElementById('lightboxDesc');
+    const modalClose = document.getElementById('lightboxClose');
+
+    const openModal = (src, title, desc) => {
+        if (!modal || !modalImg) return;
+        modalImg.src = src;
+        if (modalTitle) modalTitle.textContent = title || 'Facility & Workpiece Preview';
+        if (modalDesc) modalDesc.textContent = desc || 'Bhagavathi Engineering Precision Facility';
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    };
+
+    const closeModal = () => {
+        if (!modal) return;
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    };
+
+    if (modalClose) modalClose.addEventListener('click', closeModal);
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal || e.target.classList.contains('lightbox-content-box')) {
+                closeModal();
+            }
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    // Attach click events to gallery thumbnails and previewable images
+    document.querySelectorAll('.infra-gallery-thumb, [data-preview-src]').forEach(el => {
+        el.style.cursor = 'pointer';
+        el.addEventListener('click', (e) => {
+            e.preventDefault();
+            const imgEl = el.querySelector('img') || el;
+            const src = el.getAttribute('data-preview-src') || imgEl.getAttribute('data-preview-src') || imgEl.getAttribute('src');
+            const title = el.getAttribute('data-preview-title') || imgEl.getAttribute('alt') || 'Facility Preview';
+            const desc = el.getAttribute('data-preview-desc') || '';
+            if (src) openModal(src, title, desc);
+        });
+    });
+
 });
