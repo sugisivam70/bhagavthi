@@ -1516,18 +1516,7 @@ h6 {
 }
 
 /* About responsive styles */
-@media (max-width: 1024px) {
-  .about-layout {
-    gap: 48px;
-  }
-}
-
 @media (max-width: 768px) {
-  .about-layout {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 24px;
-  }
-
   .about-images {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
@@ -2556,6 +2545,11 @@ h6 {
     font-size: 1rem;
     line-height: 1.6;
   }
+  .about-layout,
+  .why-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
   .capabilities-grid,
   .gallery-grid,
   .infra-gallery {
@@ -2624,9 +2618,6 @@ h6 {
   }
   .gallery-caption p {
     color: var(--gray-600);
-  }
-  .cta-actions {
-    flex-wrap: wrap;
   }
   .footer-main {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -5251,6 +5242,9 @@ textarea.terminal-input {
   .form-row-diag {
     grid-template-columns: minmax(0, 1fr);
     gap: 20px;
+  }
+  .terminal-input {
+    font-size: 1rem;
   }
   .hud-map-header {
     flex-direction: column;
